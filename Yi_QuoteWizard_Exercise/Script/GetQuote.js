@@ -163,27 +163,27 @@ function DisplayQuote() {
             $('<h1>', { html: "Quote ID: " + data.ID }).appendTo($("body"));
             $('<div>', { html: "Consumer: " + data.Consumer.First_Name + " " + data.Consumer.Last_Name, class: 'SectionTitle'}).appendTo($("body"));
             $('<div>', { html: "<table id='ConsumerContainer' class='DetailTable'></table>" }).appendTo($("body"));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Age</td><td>" + data.Consumer.Age + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Credit rating</td><td>" + data.Consumer.Credit_Rating + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Address</td><td>" + data.Consumer.Address + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Address2</td><td>" + data.Consumer.Address2 + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>State</td><td>" + data.Consumer.State + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Age</td><td>" +data.Consumer.Age + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Credit rating</td><td>" + GetString(data.Consumer.Credit_Rating) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Address</td><td>" + GetString(data.Consumer.Address) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Address2</td><td>" + GetString(data.Consumer.Address2)+ "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>State</td><td>" + GetString(data.Consumer.State) + "</td>" }).appendTo($('#ConsumerContainer'));
             $('<tr>', { html: "<td class='DetailTableNameTD'>Zip Code</td><td>" + data.Consumer.Zip_Code + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Area Code</td><td>" + data.Consumer.Area_Code + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>County</td><td>" + data.Consumer.County + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Primary Phone</td><td>" + data.Consumer.Primary_Phone + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Secondary Phone</td><td>" + data.Consumer.Secondary_Phone + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Email</td><td>" + data.Consumer.Email + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Area Code</td><td>" + GetInt(data.Consumer.Area_Code) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>County</td><td>" + GetString(data.Consumer.County) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Primary Phone</td><td>" + GetString(data.Consumer.Primary_Phone)+ "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Secondary Phone</td><td>" + GetString(data.Consumer.Secondary_Phone) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Email</td><td>" + GetString(data.Consumer.Email) + "</td>" }).appendTo($('#ConsumerContainer'));
             $('<tr>', { html: "<td class='DetailTableNameTD'>Years at address</td><td>" + data.Consumer.Years_At_Address + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Is currently at address</td><td>" + data.Consumer.Is_Currently_at_Address + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Own or rent</td><td>" + data.Consumer.Own_Or_Rent + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Comments</td><td>" + data.Consumer.Comments + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Contact Method</td><td>" + data.Consumer.Contact_Method + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Is currently at address</td><td>" + GetString(data.Consumer.Is_Currently_at_Address) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Own or rent</td><td>" + GetString(data.Consumer.Own_Or_Rent) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Comments</td><td>" + GetString(data.Consumer.Comments) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Contact Method</td><td>" + GetString(data.Consumer.Contact_Method) + "</td>" }).appendTo($('#ConsumerContainer'));
             $('<tr>', { html: "<td class='DetailTableNameTD'>Birthdate</td><td>" + GetDateString(data.Consumer.Birthdate) + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Occupation</td><td>" + data.Consumer.Occupation + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Highest Level</td><td>" + data.Consumer.Highest_Level + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Gender</td><td>" + data.Consumer.Gender + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Property Type</td><td>" + data.Consumer.Property_Type + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Occupation</td><td>" + GetString(data.Consumer.Occupation) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Highest Level</td><td>" + GetString(data.Consumer.Highest_Level) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Gender</td><td>" + GetString(data.Consumer.Gender) + "</td>" }).appendTo($('#ConsumerContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Property Type</td><td>" + GetString(data.Consumer.Property_Type) + "</td>" }).appendTo($('#ConsumerContainer'));
 
 
             $.each(data.Vehicle, function (key, item) {
@@ -191,26 +191,26 @@ function DisplayQuote() {
                 $('<div>', { html: "<table id='VehicleContainer" + key +"' class='DetailTable'></table>" }).appendTo($("body"));
                 $('<tr>', { html: "<td class='DetailTableNameTD'>Year</td><td>" + item.Year + "</td>" }).appendTo($('#VehicleContainer' + key));
                 $('<tr>', { html: "<td class='DetailTableNameTD'>Days used</td><td>" + item.Days_Used + "</td>" }).appendTo($('#VehicleContainer' + key));
-                $('<tr>', { html: "<td class='DetailTableNameTD'>Use</td><td>" + item.Use + "</td>" }).appendTo($('#VehicleContainer' + key));
+                $('<tr>', { html: "<td class='DetailTableNameTD'>Use</td><td>" + GetString(item.Use) + "</td>" }).appendTo($('#VehicleContainer' + key));
                 $('<tr>', { html: "<td class='DetailTableNameTD'>Distance</td><td>" + item.Distance + "</td>" }).appendTo($('#VehicleContainer' + key));
                 $('<tr>', { html: "<td class='DetailTableNameTD'>Annual distance</td><td>" + item.Annual_Distance + "</td>" }).appendTo($('#VehicleContainer' + key));
-                $('<tr>', { html: "<td class='DetailTableNameTD'>EngineInformation</td><td>" + item.EngineInformation + "</td>" }).appendTo($('#VehicleContainer' + key));
+                $('<tr>', { html: "<td class='DetailTableNameTD'>EngineInformation</td><td>" + GetString(item.EngineInformation) + "</td>" }).appendTo($('#VehicleContainer' + key));
 
             });
            
             $('<div>', { html: "Coverage", class: 'SectionTitle' }).appendTo($("body"));
             $('<div>', { html: "<table id='CoverageContainer' class='DetailTable'></table>" }).appendTo($("body"));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Mouths_Insured</td><td>" + data.Coverage.Mouths_Insured + "</td>" }).appendTo($('#ConsumerContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Has_Coverage</td><td>" + data.Coverage.Has_Coverage + "</td>" }).appendTo($('#CoverageContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Type</td><td>" + data.Coverage.Type + "</td>" }).appendTo($('#CoverageContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Mouths_Insured</td><td>" + GetString(data.Coverage.Mouths_Insured) + "</td>" }).appendTo($('#CoverageContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Has_Coverage</td><td>" + GetString(data.Coverage.Has_Coverage) + "</td>" }).appendTo($('#CoverageContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Type</td><td>" + GetString(data.Coverage.Type) + "</td>" }).appendTo($('#CoverageContainer'));
             $('<tr>', { html: "<td class='DetailTableNameTD'>Bodily injury person</td><td>" + data.Coverage.Bodilyinjury_person + "</td>" }).appendTo($('#CoverageContainer'));
             $('<tr>', { html: "<td class='DetailTableNameTD'>Bodily injury accident</td><td>" + data.Coverage.Bodilyinjury_accident + "</td>" }).appendTo($('#CoverageContainer'));
             $('<tr>', { html: "<td class='DetailTableNameTD'>Deductible</td><td>" + data.Coverage.Deductible + "</td>" }).appendTo($('#CoverageContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Propertydamage</td><td>" + data.Coverage.Propertydamage + "</td>" }).appendTo($('#CoverageContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Property damage</td><td>" + data.Coverage.Propertydamage + "</td>" }).appendTo($('#CoverageContainer'));
             $('<tr>', { html: "<td class='DetailTableNameTD'>Expiration Date</td><td>" + GetDateString(data.Coverage.Expiration_Date) + "</td>" }).appendTo($('#CoverageContainer'));
             $('<tr>', { html: "<td class='DetailTableNameTD'>Expiration Days Remaining</td><td>" + data.Coverage.Expiration_Days_Remaining + "</td>" }).appendTo($('#CoverageContainer'));
             $('<tr>', { html: "<td class='DetailTableNameTD'>DtgExpirationDate</td><td>" + GetDateString(data.Coverage.DtgExpirationDate) + "</td>" }).appendTo($('#CoverageContainer'));
-            $('<tr>', { html: "<td class='DetailTableNameTD'>Former Insurer</td><td>" + data.Coverage.Former_Insurer + "</td>" }).appendTo($('#CoverageContainer'));
+            $('<tr>', { html: "<td class='DetailTableNameTD'>Former Insurer</td><td>" + GetString(data.Coverage.Former_Insurer) + "</td>" }).appendTo($('#CoverageContainer'));
             
         })
         .fail(function (jqXHR, textStatus, err) {
@@ -226,6 +226,21 @@ function GetDateString(date) {
         return (timestring.getMonth() + 1) + "/" + timestring.getDate() + "/" + timestring.getFullYear();
 }
 
+function GetString(data) {
+    if (data && data.length > 0)
+        return data;
+    else
+        return "N/A";
+
+}
+
+function GetInt(data) {
+    if (data)
+        return data;
+    else
+        return "N/A";
+
+}
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
