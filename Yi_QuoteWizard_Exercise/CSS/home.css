@@ -1,0 +1,61 @@
+﻿body {
+    width:950px;
+    font-family:'Segoe UI';
+    font-size:14px;
+    margin-bottom:50px;
+}
+
+.QuoteTable {
+    margin: 10px 0px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .QuoteTable th {
+        background-color: gray;
+        color: white;
+        text-transform: uppercase;
+        height: 35px;
+        padding: 3px 5px;
+    }
+
+    .QuoteTable td {
+        border-bottom: solid 1px gray;
+        height: 30px;
+        padding: 3px 5px;
+    }
+.QuoteTableFooter {
+    margin: 10px 0px;
+    width: 100%;
+    border-collapse: collapse;
+}
+.PageNumTB{
+        width:30px;
+}
+.FooterPageNum {
+    text-align: center;
+}
+button{
+    padding:3px 5px;
+}
+.DetailTable {
+    width: 100%;
+    margin: 10px 0px;
+    margin-left: 10px;
+}
+    .DetailTable td {
+        padding: 3px 5px;
+    }
+    .DetailTableNameTD {
+    width: 200px;
+    background-color: gray;
+    text-transform: uppercase;
+    color: white;
+    
+}
+.SectionTitle{
+    font-size:20px;
+    font-weight:600;
+    width:100%;
+    border-bottom:solid 1px gray;
+}
