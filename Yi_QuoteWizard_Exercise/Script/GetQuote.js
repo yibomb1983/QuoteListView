@@ -4,9 +4,10 @@ function GetFilter()
 {
     $('<div>', { id: 'FilterDiv', html: "<table><tr id='FilterContainer'></tr><tr id='FilterFooter'></tr></table>" }).appendTo($("body"));
     $('<td>', { html: "Former Insurer <select multiple='multiple'  id='FIDDL'>" }).appendTo($("#FilterContainer"));
-    $('<td>', { html: "Make <select multiple='multiple'  id='VMDDL'>" }).appendTo($("#FilterContainer"));
+    $('<td>', { html: "Vehicle Make <select multiple='multiple'  id='VMDDL'>" }).appendTo($("#FilterContainer"));
     $('<td>', { html: "State <select multiple='multiple'  id='STDDL'>" }).appendTo($("#FilterContainer"));
     $('<td>', { html: "<button id='BtnApply' type='button'>Apply</button>" }).appendTo($("#FilterFooter"));
+    $('#FilterDiv').hide();
     $.getJSON('api/GetFilters')
         .done(function (data) {
             $.each(data.Vehicle_Make, function (key, item) {
@@ -46,6 +47,7 @@ function GetFilter()
                 GetQuotes();
             });
 
+            $('#FilterDiv').show();
             GetQuotes();
         })
         .fail(function (jqXHR, textStatus, err) {
@@ -59,16 +61,23 @@ function GetQuotes()
 {
     $('#QuoteDiv').remove();
     var filter = { Former_Insurer: [], State: [], Vehicle_Make: [] };
-
-    $.each($('#VMDDL').val(), function (key, item) {
-        filter.Vehicle_Make.push({ Key: item, Value: item });
-    });
-    $.each($('#STDDL').val(), function (key, item) {
-        filter.State.push({ Key: item, Value: item });
-    });
-    $.each($('#FIDDL').val(), function (key, item) {
-        filter.Former_Insurer.push({ Key: item, Value: item });
-    });
+    if ($('#VMDDL').val())
+    {
+        $.each($('#VMDDL').val(), function (key, item) {
+            filter.Vehicle_Make.push({ Key: item, Value: item });
+        });
+    }
+    if ($('#STDDL').val()) {
+        $.each($('#STDDL').val(), function (key, item) {
+            filter.State.push({ Key: item, Value: item });
+        });
+    }
+    if ($('#FIDDL').val()) {
+        $.each($('#FIDDL').val(), function (key, item) {
+            filter.Former_Insurer.push({ Key: item, Value: item });
+        });
+    }
+   
 
     $.ajax({
         type: "POST",
@@ -77,83 +86,85 @@ function GetQuotes()
         contentType: "application/json"
     }).done(function (data) {
 
-        $('<div>', {id:'QuoteDiv', html: "<table id='QuoteContainer' class='QuoteTable'></table>" }).appendTo($("body"));
-        
-        CurrentPage = 1;
-        TotalPages = Math.ceil(data.length / MAXITEMPERPAGE);
-        PopulateGridTable(data, $('#QuoteContainer'), 0, MAXITEMPERPAGE);
+        if (data && data.length > 0) {
+            $('<div>', { id: 'QuoteDiv', html: "<table id='QuoteContainer' class='QuoteTable'></table>" }).appendTo($("body"));
+            CurrentPage = 1;
+            TotalPages = Math.ceil(data.length / MAXITEMPERPAGE);
+            PopulateGridTable(data, $('#QuoteContainer'), 0, MAXITEMPERPAGE);
 
-        if (data.length > MAXITEMPERPAGE)
-        {
-            $('<div>', { html: "<table class='QuoteTableFooter'><tr><td><button id='prevbtn' style='float:left;'><</button></td><td class='FooterPageNum'><input id='PageNumTB' class='PageNumTB' type='text' value='" + CurrentPage + "'/> / " + TotalPages + "</td><td><button id='nextbtn' style='float:right;'>></button></td></tr></table>" }).appendTo($('#QuoteDiv'));
-            $('#prevbtn').click(function () {
-                CurrentPage--;
-                PopulateGridTable(data, $('#QuoteContainer'), (CurrentPage-1) * MAXITEMPERPAGE );
-                if (CurrentPage == 1) {
-                    $('#prevbtn').attr("disabled", 'disabled');
-                }
-                else {
-                    $('#prevbtn').removeAttr("disabled");
-                }
-                $('#PageNumTB').val(CurrentPage);
-                $('#nextbtn').removeAttr("disabled");
-            });
-            $('#nextbtn').click(function () {
-                CurrentPage++;
-                PopulateGridTable(data, $('#QuoteContainer'), (CurrentPage - 1) * MAXITEMPERPAGE);
-                if (CurrentPage == TotalPages) {
-                    $('#nextbtn').attr("disabled", 'disabled');
-                }
-                else {
+            if (data.length > MAXITEMPERPAGE) {
+                $('<div>', { html: "<table class='QuoteTableFooter'><tr><td><button id='prevbtn' style='float:left;'><</button></td><td class='FooterPageNum'><input id='PageNumTB' class='PageNumTB' type='text' value='" + CurrentPage + "'/> / " + TotalPages + "</td><td><button id='nextbtn' style='float:right;'>></button></td></tr></table>" }).appendTo($('#QuoteDiv'));
+                $('#prevbtn').click(function () {
+                    CurrentPage--;
+                    PopulateGridTable(data, $('#QuoteContainer'), (CurrentPage - 1) * MAXITEMPERPAGE);
+                    if (CurrentPage == 1) {
+                        $('#prevbtn').attr("disabled", 'disabled');
+                    }
+                    else {
+                        $('#prevbtn').removeAttr("disabled");
+                    }
+                    $('#PageNumTB').val(CurrentPage);
                     $('#nextbtn').removeAttr("disabled");
-                }
-                $('#PageNumTB').val(CurrentPage);
-                $('#prevbtn').removeAttr("disabled");
-            });
-            $('#PageNumTB').change(function () {
-                var pagenum = $(this).val();
-                if (pagenum < 1)
-                    pagenum = 1;
-                else if (pagenum > TotalPages)
-                    pagenum = TotalPages;
+                });
+                $('#nextbtn').click(function () {
+                    CurrentPage++;
+                    PopulateGridTable(data, $('#QuoteContainer'), (CurrentPage - 1) * MAXITEMPERPAGE);
+                    if (CurrentPage == TotalPages) {
+                        $('#nextbtn').attr("disabled", 'disabled');
+                    }
+                    else {
+                        $('#nextbtn').removeAttr("disabled");
+                    }
+                    $('#PageNumTB').val(CurrentPage);
+                    $('#prevbtn').removeAttr("disabled");
+                });
+                $('#PageNumTB').change(function () {
+                    var pagenum = $(this).val();
+                    if (pagenum < 1)
+                        pagenum = 1;
+                    else if (pagenum > TotalPages)
+                        pagenum = TotalPages;
 
-                CurrentPage = pagenum;
-                PopulateGridTable(data, $('#QuoteContainer'), (CurrentPage - 1) * MAXITEMPERPAGE);
-                if (CurrentPage == 1) {
-                    $('#prevbtn').attr("disabled", 'disabled');
-                    $('#nextbtn').removeAttr("disabled");
-                }
-                else if (CurrentPage == TotalPages) {
-                    $('#prevbtn').removeAttr("disabled");
-                    $('#nextbtn').attr("disabled", 'disabled');
-                }
-                else {
-                    $('#prevbtn').removeAttr("disabled");
-                    $('#nextbtn').removeAttr("disabled");
-                }
-            });
-            $('#prevbtn').attr("disabled", 'disabled');
+                    CurrentPage = pagenum;
+                    PopulateGridTable(data, $('#QuoteContainer'), (CurrentPage - 1) * MAXITEMPERPAGE);
+                    if (CurrentPage == 1) {
+                        $('#prevbtn').attr("disabled", 'disabled');
+                        $('#nextbtn').removeAttr("disabled");
+                    }
+                    else if (CurrentPage == TotalPages) {
+                        $('#prevbtn').removeAttr("disabled");
+                        $('#nextbtn').attr("disabled", 'disabled');
+                    }
+                    else {
+                        $('#prevbtn').removeAttr("disabled");
+                        $('#nextbtn').removeAttr("disabled");
+                    }
+                });
+                $('#prevbtn').attr("disabled", 'disabled');
+            }
+        } else {
+            $('<div>', { id: 'QuoteDiv', html: "No Quotes are Found!" }).appendTo($("body"));
         }
-
     }).fail(function (jqXHR, textStatus, err) {
             alert(err);
         });
 
 }
 
-function PopulateGridTable(Quotes,Container,startindex)
-{
+function PopulateGridTable(Quotes, Container, startindex) {
     Container.empty();
+
     $('<tr>', { html: "<th>Quote ID</th><th>Consumer</th><th>State</th>" }).appendTo(Container);
     for (i = startindex; i < startindex + MAXITEMPERPAGE; i++) {
         if (Quotes[i]) {
             var item = Quotes[i];
-            var link = "<a target='_blank' href='QuoteDetail.html?qid=" + item.ID+"'>"+ item.ID+"</a>"
+            var link = "<a target='_blank' href='QuoteDetail.html?qid=" + item.ID + "'>" + item.ID + "</a>"
 
             $('<tr>', { html: "<td>" + link + "</td><td>" + item.Consumer.First_Name + " " + item.Consumer.Last_Name + "</td><td>" + item.Consumer.State + "</td>" }).appendTo(Container);
         }
     }
-   
+
+
 }
 
 function DisplayQuote() {
