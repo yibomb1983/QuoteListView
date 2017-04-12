@@ -17,6 +17,7 @@ namespace Yi_QuoteWizard_Exercise.Controllers
 
             Quote Result = new Quote();
             QuoteCollection quotes = new QuoteCollection();
+            //Get Quote by ID, if ID does not exist, then it will reutrn null
             Result = quotes.GetQuotes().Where(q => q.ID == ID).FirstOrDefault();
             
             return Result;
@@ -28,13 +29,17 @@ namespace Yi_QuoteWizard_Exercise.Controllers
         {
 
             List<Quote> Result = new List<Quote>();
-
             QuoteCollection quotes = new QuoteCollection();
+            //Get then all Quotes from the Json file
             Result = quotes.GetQuotes();
+            //Filter on State
             Result = ApplyFilter(Result, filter.State, 1);
+            //Filter on former insurer
             Result = ApplyFilter(Result, filter.Former_Insurer, 2);
+            //Filter on Vehicle Make
             Result = ApplyFilter(Result, filter.Vehicle_Make, 3);
 
+            //Sort result list by Quote ID
             Result = Result.OrderBy(q => q.ID).ToList();
             return Result;
         }
@@ -46,6 +51,7 @@ namespace Yi_QuoteWizard_Exercise.Controllers
 
             foreach (FilterItem fi in filters)
             {
+                //since filter key value "N/A" means empty string when creating Filter object, we will convert it back to make sure quote with empty filter value is included as well
                 if(fi.Key == "N/A")
                     filterlist.Add(string.Empty);
                 else
