@@ -32,18 +32,18 @@ namespace Yi_QuoteWizard_Exercise.Controllers
             foreach (Quote q in quotes.GetQuotes())
             {
                 //check if dictionary has key, if it does already then no insert
-                if (!former_Insurer.ContainsKey(q.Coverage.Former_Insurer))
-                    former_Insurer.Add(q.Coverage.Former_Insurer, q.Coverage.Former_Insurer);
-                if (!State.ContainsKey(q.Consumer.State))
-                    State.Add(q.Consumer.State, q.Consumer.State);
+                if (!former_Insurer.ContainsKey(q.Coverage.Former_Insurer.ToUpper()))
+                    former_Insurer.Add(q.Coverage.Former_Insurer.ToUpper(), q.Coverage.Former_Insurer);
+                if (!State.ContainsKey(q.Consumer.State.ToUpper()))
+                    State.Add(q.Consumer.State.ToUpper(), q.Consumer.State);
                 
                 foreach(Vehicle v in q.Vehicle)
                 {
                     FilterItem VM = new FilterItem();
                     VM.Value = v.Make;
                     VM.Key = v.Make;
-                    if (!Vehicle_Make.ContainsKey(v.Make))
-                        Vehicle_Make.Add(v.Make, v.Make);
+                    if (!Vehicle_Make.ContainsKey(v.Make.ToUpper()))
+                        Vehicle_Make.Add(v.Make.ToUpper(), v.Make);
                 }
             }
 
@@ -69,7 +69,7 @@ namespace Yi_QuoteWizard_Exercise.Controllers
                 if (!string.IsNullOrEmpty(kv.Key))
                 {
                    
-                    fi.Key = kv.Key;
+                    fi.Key = kv.Value;
                     fi.Value = kv.Value;
                 }
                 else

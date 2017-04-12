@@ -55,20 +55,20 @@ namespace Yi_QuoteWizard_Exercise.Controllers
                 if(fi.Key == "N/A")
                     filterlist.Add(string.Empty);
                 else
-                    filterlist.Add(fi.Key);
+                    filterlist.Add(fi.Key.ToUpper());
             }
             List<Quote> filteredList = new List<Quote>();
             if(filtertype == 1)
             {
-                filteredList = Quotes.Where(q => filterlist.Contains(q.Consumer.State)).ToList();
+                filteredList = Quotes.Where(q => filterlist.Contains(q.Consumer.State.ToUpper())).ToList();
             }
             else if(filtertype == 2)
             {
-                filteredList = Quotes.Where(q => filterlist.Contains(q.Coverage.Former_Insurer)).ToList();
+                filteredList = Quotes.Where(q => filterlist.Contains(q.Coverage.Former_Insurer.ToUpper())).ToList();
             }
             else if (filtertype == 3)
             {
-                filteredList = Quotes.Where(q => q.Vehicle.Where(v=> filterlist.Contains(v.Make)).Count()>0).ToList();
+                filteredList = Quotes.Where(q => q.Vehicle.Where(v=> filterlist.Contains(v.Make.ToUpper())).Count()>0).ToList();
             }
 
             return filteredList;
